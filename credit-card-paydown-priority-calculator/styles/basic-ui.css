@@ -1,3 +1,91 @@
+body {
+  position: relative;
+}
+
 body * {
   box-sizing: border-box;
+}
+
+.app-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+}
+
+.app-wrapper-left, .app-wrapper-right {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  padding: 20px;
+}
+
+.app-wrapper-left {
+  justify-content: center;
+  border-right: 1px solid #000;
+}
+
+.app-wrapper-right {
+  justify-content: flex-start;
+}
+
+.app-wrapper-left__card-input-group {
+  display: block;
+  padding: 10px;
+  box-shadow: 1px 1px 2px #252525;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.app-wrapper-left__card-input-group span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.25em;
+  font-weight: normal;
+}
+
+.app-wrapper-left__card-input-group span:last-of-type {
+  margin-top: 0.5em;
+}
+
+.app-wrapper-left__card-input-group label {
+  flex: 0 0 auto;
+}
+
+.app-wrapper-left__card-input-group input {
+  flex: 0 0 auto;
+  margin-left: 1em;
+  padding: 5px;
+}
+
+.app-wrapper-left__add-card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border-radius: 22px;
+  background-color: #252525;
+  color: white;
+  border: 0;
+  font-size: 1.125em;
+  margin-top: 15px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.app-wrapper-left__add-card-btn:hover {
+  opacity: 1;
+  box-shadow: 1px 1px 2px #000;
+}
+
+.app-wrapper-left__add-card-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5em;
 }

@@ -7,15 +7,31 @@
     <meta name="description" content="This calculator figures out how much money to put into each card based on priority/percentage.">
     <title>Credit Card Paydown Priority Calculator</title>
     <link rel="stylesheet" type="text/css" href="./styles/css-reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/typography.css">
     <link rel="stylesheet" type="text/css" href="./styles/basic-ui.css">
   </head>
   <body>
     <div class="app-wrapper">
-      <div class="app-wrapper__left">
-
+      <div class="app-wrapper-left">
+        <h2>Add cards</h2>
+        <div class="app-wrapper-left__card-input-group">
+          <span>
+            <label for="card_name">Name</label>
+            <input type="text" id="card_card" name="card_name" placeholder="name">
+          </span>
+          <span>
+            <label for="card_balance">Balance</label>
+            <input type="text" id="card_balance" name="card_balance" placeholder="$0.00">
+          </span>
+        </div>
+        <button class="app-wrapper-left__add-card-btn" type="button" id="add_card">
+          <img class="app-wrapper-left__add-card-icon" src="./assets/icons/plus_white.svg" />
+          Add card
+        </button>
       </div>
-      <div class="app-wrapper__right">
-        
+      <div class="app-wrapper-right">
+
       </div>
     </div>
   </body>
