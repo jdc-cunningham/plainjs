@@ -89,3 +89,56 @@ body * {
   height: 24px;
   margin-right: 0.5em;
 }
+
+.right__card-block {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.right__card-block:first-of-type {
+  margin-top: 1em;
+}
+
+.right__card-block .card-block__delete-card {
+  flex: 0 0 auto;
+  padding: 0.5em;
+  font-size: 1.25rem;
+  color: #DC143C;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  opacity: 0.6;
+}
+
+.right__card-block .card-block__delete-card:hover {
+  opacity: 1;
+}
+
+.right__card-block .card-block__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+  width: 90%;
+  border-bottom: 1px solid #ccc;
+}
+
+.card-block__wrapper .card-block__name,
+.card-block__wrapper .card-block__balance {
+  font-weight: normal;
+  font-size: 1.5rem;
+}
+
+.card-block__wrapper .card-block__name {
+  width: 75%;
+}
+
+.card-block__wrapper .card-block__balance {
+  width: 25%;
+  text-align: right;
+}
