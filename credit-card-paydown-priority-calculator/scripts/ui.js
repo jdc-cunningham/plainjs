@@ -6,6 +6,7 @@ class CardPaymentCalculator {
     this.addedCards = {};
     this.cardContainerElem = document.querySelector('.app-wrapper-right');
     this.userCards = JSON.parse(localStorage.getItem('user_cards'));
+    this.cardElemContainer = document.querySelector('.app-wrapper-right');
   }
 
   generateRandomStr(length) {
@@ -67,7 +68,7 @@ class CardPaymentCalculator {
 
   renderNewCard(cardId, useLocalStorage) {
     var cardObj = useLocalStorage ? this.userCards[cardId] : this.addedCards[cardId],
-        cardElem = '<div class="right__card-block" data-card-id="' + cardId + '">' +
+        cardElem = '<div id="' + cardId + '" class="right__card-block">' +
           '<button type="button" class="card-block__delete-card">x</button>' +
           '<div class="card-block__wrapper">' +
             '<div class="card-block__name">' + cardObj.name + '</div>' +
@@ -82,6 +83,7 @@ class CardPaymentCalculator {
     if (this.userCards) {
       var userCards = this.userCards,
           self = this;
+      this.addedCards = userCards;
       Object.keys(userCards).map( function(key, index) {
         self.renderNewCard(key, true);
       });
@@ -91,6 +93,14 @@ class CardPaymentCalculator {
   updateStorage() {
     localStorage.setItem('user_cards', JSON.stringify(this.addedCards));
   }
+
+  removeCard(cardId) {
+    if (cardId in this.addedCards) { // bad design having multiple stores
+      delete this.addedCards[cardId];
+      this.updateStorage();
+      document.getElementById(cardId).remove();
+    }
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -98,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   app.renderStoredCards();
 
+  // add card
   app.getAddCardBtn().addEventListener('click', function() {
     if (app.checkEmptyFields()) {
       alert('Please fill in all fields');
@@ -106,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (!app.isNumber()) {
       alert('Please enter a number or decimal');
+      return false;
     }
 
     var cardId = app.checkIdAvailable(app.generateRandomStr(8));
@@ -117,5 +129,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     app.renderNewCard(cardId, false);
     app.updateStorage();
+  });
+
+  // delete card
+  app.cardElemContainer.addEventListener('click', function(e) {
+    var targetNode = e.target;
+
+    if ( targetNode.classList.contains('card-block__delete-card') ) {
+      var cardId = targetNode.parentNode.getAttribute('id'),
+          confirmDelete = null;
+
+      if ( cardId ) {
+        confirmDelete = confirm("Delete this card entry?");
+      }
+          
+      if ( confirmDelete ) {
+        app.removeCard(cardId);
+      }
+    }
   });
 });

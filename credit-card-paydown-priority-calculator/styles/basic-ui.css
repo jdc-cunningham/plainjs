@@ -112,6 +112,7 @@ body * {
   background-color: transparent;
   border: 0;
   opacity: 0.6;
+  outline: none;
 }
 
 .right__card-block .card-block__delete-card:hover {
