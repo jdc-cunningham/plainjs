@@ -25,11 +25,11 @@ class CardPaymentCalculator {
       n = parseInt(n);
     }
 
-    function isFloat(n) {
+    const isFloat = (n) => {
       return n === +n && n !== (n|0);
     }
     
-    function isInteger(n) {
+    const isInteger = (n) => {
       return n === +n && n === (n|0);
     }
 
@@ -86,7 +86,7 @@ class CardPaymentCalculator {
       var userCards = this.userCards,
           self = this;
       this.addedCards = userCards;
-      Object.keys(userCards).map( function(key, index) {
+      Object.keys(userCards).map( (key, index) => {
         self.renderNewCard(key, true);
       });
     }
@@ -105,7 +105,7 @@ class CardPaymentCalculator {
   }
 
   clearCards() {
-    document.querySelectorAll('.right__card-block').forEach( function(cardBlock) {
+    document.querySelectorAll('.right__card-block').forEach( (cardBlock) => {
       cardBlock.remove();
     });
   }
@@ -116,7 +116,7 @@ class CardPaymentCalculator {
     var newSortCards = {},
         self = this;
 
-    Object.keys(this.addedCards).forEach( function(key) {
+    Object.keys(this.addedCards).forEach( (key) => {
       if (key === self.draggedOverRow) {
         newSortCards[key] = self.addedCards[self.draggedRow];
       } else if (key === self.draggedRow) {
@@ -154,27 +154,27 @@ class CardPaymentCalculator {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
   const app = new CardPaymentCalculator();
 
   app.renderStoredCards();
 
   // add card
-  app.getAddCardBtn().addEventListener('click', function() {
+  app.getAddCardBtn().addEventListener('click', () => {
     app.addCard();
   });
 
-  document.addEventListener('keypress', function(e) {
+  document.addEventListener('keypress', (e) => {
     var key = e.which || e.keyCode,
         activeElementId = e.target.getAttribute('id');
-        
+
     if (key === 13 && (activeElementId === 'card_name' || activeElementId === 'card_balance')) { // 13 is enter from SO
       app.addCard();
     }
   });
 
   // delete card
-  app.cardElemContainer.addEventListener('click', function(e) {
+  app.cardElemContainer.addEventListener('click', (e) => {
     var targetNode = e.target;
 
     if (targetNode.classList.contains('card-block__delete-card')) {
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  document.querySelector('.app-wrapper-right').addEventListener('dragstart', function(e) {
+  document.querySelector('.app-wrapper-right').addEventListener('dragstart', (e) => {
     var target = e.target;
 
     if (e.target.classList.contains('right__card-block')) {
@@ -199,11 +199,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  document.querySelector('.app-wrapper-right').addEventListener('dragend', function(e) {
+  document.querySelector('.app-wrapper-right').addEventListener('dragend', (e) => {
     app.reRenderCards();
   });
 
-  document.querySelector('.app-wrapper-right').addEventListener('dragover', function(e) {
+  document.querySelector('.app-wrapper-right').addEventListener('dragover', (e) => {
     var targetParent = e.target.parentNode;
 
     if (targetParent.classList.contains('right__card-block')) {
