@@ -7,6 +7,8 @@ class CardPaymentCalculator {
     this.cardContainerElem = document.querySelector('.app-wrapper-right');
     this.userCards = JSON.parse(localStorage.getItem('user_cards'));
     this.cardElemContainer = document.querySelector('.app-wrapper-right');
+    this.draggedRow = null;
+    this.draggedOverRow = null;
   }
 
   generateRandomStr(length) {
@@ -68,7 +70,7 @@ class CardPaymentCalculator {
 
   renderNewCard(cardId, useLocalStorage) {
     var cardObj = useLocalStorage ? this.userCards[cardId] : this.addedCards[cardId],
-        cardElem = '<div id="' + cardId + '" class="right__card-block">' +
+        cardElem = '<div id="' + cardId + '" class="right__card-block" draggable="true">' +
           '<button type="button" class="card-block__delete-card">x</button>' +
           '<div class="card-block__wrapper">' +
             '<div class="card-block__name">' + cardObj.name + '</div>' +
@@ -101,6 +103,55 @@ class CardPaymentCalculator {
       document.getElementById(cardId).remove();
     }
   }
+
+  clearCards() {
+    document.querySelectorAll('.right__card-block').forEach( function(cardBlock) {
+      cardBlock.remove();
+    });
+  }
+
+  reRenderCards() {
+    this.clearCards();
+
+    var newSortCards = {},
+        self = this;
+
+    Object.keys(this.addedCards).forEach( function(key) {
+      if (key === self.draggedOverRow) {
+        newSortCards[key] = self.addedCards[self.draggedRow];
+      } else if (key === self.draggedRow) {
+        newSortCards[key] = self.addedCards[self.draggedOverRow];
+      } else {
+        newSortCards[key] = self.addedCards[key];
+      }
+    });
+
+    this.addedCards = this.userCards = newSortCards;
+    this.updateStorage();
+    this.renderStoredCards();
+  }
+
+  addCard() {
+    if (this.checkEmptyFields()) {
+      alert('Please fill in all fields');
+      return false;
+    }
+
+    if (!this.isNumber()) {
+      alert('Please enter a number or decimal');
+      return false;
+    }
+
+    var cardId = this.checkIdAvailable(this.generateRandomStr(8));
+
+    this.addedCards[cardId] = {
+      name: this.cardName.value,
+      balance: this.cardBalance.value
+    };
+
+    this.renderNewCard(cardId, false);
+    this.updateStorage();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -110,42 +161,61 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // add card
   app.getAddCardBtn().addEventListener('click', function() {
-    if (app.checkEmptyFields()) {
-      alert('Please fill in all fields');
-      return false;
+    app.addCard();
+  });
+
+  document.addEventListener('keypress', function(e) {
+    var key = e.which || e.keyCode,
+        activeElementId = e.target.getAttribute('id');
+        
+    if (key === 13 && (activeElementId === 'card_name' || activeElementId === 'card_balance')) { // 13 is enter from SO
+      app.addCard();
     }
-
-    if (!app.isNumber()) {
-      alert('Please enter a number or decimal');
-      return false;
-    }
-
-    var cardId = app.checkIdAvailable(app.generateRandomStr(8));
-
-    app.addedCards[cardId] = {
-      name: app.cardName.value,
-      balance: app.cardBalance.value
-    };
-
-    app.renderNewCard(cardId, false);
-    app.updateStorage();
   });
 
   // delete card
   app.cardElemContainer.addEventListener('click', function(e) {
     var targetNode = e.target;
 
-    if ( targetNode.classList.contains('card-block__delete-card') ) {
+    if (targetNode.classList.contains('card-block__delete-card')) {
       var cardId = targetNode.parentNode.getAttribute('id'),
           confirmDelete = null;
 
-      if ( cardId ) {
+      if (cardId) {
         confirmDelete = confirm("Delete this card entry?");
       }
           
-      if ( confirmDelete ) {
+      if (confirmDelete) {
         app.removeCard(cardId);
       }
+    }
+  });
+
+  document.querySelector('.app-wrapper-right').addEventListener('dragstart', function(e) {
+    var target = e.target;
+
+    if (e.target.classList.contains('right__card-block')) {
+      app.draggedRow = target.getAttribute('id');
+    }
+  });
+
+  document.querySelector('.app-wrapper-right').addEventListener('dragend', function(e) {
+    app.reRenderCards();
+  });
+
+  document.querySelector('.app-wrapper-right').addEventListener('dragover', function(e) {
+    var targetParent = e.target.parentNode;
+
+    if (targetParent.classList.contains('right__card-block')) {
+      targetParent = targetParent;
+    } else if (targetParent.classList.contains('card-block__wrapper')) {
+      targetParent = targetParent.parentNode;
+    } else {
+      targetParent = null;
+    }
+
+    if (targetParent) {
+      app.draggedOverRow = targetParent.getAttribute('id');
     }
   });
 });

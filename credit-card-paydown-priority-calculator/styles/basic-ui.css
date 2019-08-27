@@ -96,6 +96,7 @@ body * {
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
+  cursor: pointer;
 }
 
 .right__card-block:first-of-type {
