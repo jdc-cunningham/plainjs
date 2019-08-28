@@ -121,20 +121,11 @@ body * {
   outline: none;
 }
 
-.right__card-block:hover .card-block__delete-card span {
-  display: none;
-}
-
 .right__card-block .card-block__move-icon {
   width: 0.875rem;
   height: 0.875rem;
   display: none;
 }
-
-.right__card-block:hover .card-block__delete-card .card-block__move-icon {
-  display: block;
-}
-
 
 .right__card-block .card-block__delete-card:hover {
   opacity: 1;
@@ -150,8 +141,12 @@ body * {
   border-bottom: 1px solid #ccc;
 }
 
-.card-block__wrapper {
-  border: 1px solid red;
+.right__card-block.hover .card-block__delete-card .card-block__move-icon {
+  display: block;
+}
+
+.right__card-block.hover .card-block__delete-card span {
+  display: none;
 }
 
 .card-block__wrapper .card-block__name,
