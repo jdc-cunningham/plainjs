@@ -150,6 +150,10 @@ body * {
   border-bottom: 1px solid #ccc;
 }
 
+.card-block__wrapper {
+  border: 1px solid red;
+}
+
 .card-block__wrapper .card-block__name,
 .card-block__wrapper .card-block__balance {
   font-weight: normal;

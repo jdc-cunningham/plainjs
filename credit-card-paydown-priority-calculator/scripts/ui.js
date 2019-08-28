@@ -222,4 +222,18 @@ document.addEventListener("DOMContentLoaded", () => {
       app.draggedOverRow = targetParent.getAttribute('id');
     }
   });
+
+  // starting to get redundant
+  // need to move this into app as function to call after rendering
+  // document.querySelector('.app-wrapper-right').addEventListener('mouseover', (e) => {
+  //   if (e.target.classList.contains('card-block__wrapper')) {
+  //     e.target.classList.add('hover');
+  //   }
+  // });
+
+  // document.querySelector('.app-wrapper-right').addEventListener('mouseout', (e) => {
+  //   if (e.target.classList.contains('card-block__wrapper')) {
+  //     e.target.classList.remove('hover');
+  //   }
+  // });
 });
