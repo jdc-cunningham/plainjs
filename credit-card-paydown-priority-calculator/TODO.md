@@ -9,3 +9,7 @@
 
 ### nice to haves
 - click to edit
+
+### bugs
+- clicking on red x directly does not trigger delete
+- 1.2b still counts as float, wrong

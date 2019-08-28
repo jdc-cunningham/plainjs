@@ -33,6 +33,10 @@ body * {
   justify-content: flex-start;
 }
 
+.app-wrapper-left .card-input-group-header:not(:first-of-type) {
+  margin-top: 3rem;
+}
+
 .app-wrapper-left__card-input-group {
   display: block;
   padding: 10px;
@@ -56,11 +60,12 @@ body * {
 
 .app-wrapper-left__card-input-group label {
   flex: 0 0 auto;
+  margin-right: 0.5rem;
 }
 
 .app-wrapper-left__card-input-group input {
   flex: 0 0 auto;
-  margin-left: 1em;
+  margin-left: 0.25rem;
   padding: 5px;
 }
 

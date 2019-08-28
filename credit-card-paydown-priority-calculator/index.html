@@ -14,14 +14,14 @@
   <body>
     <div class="app-wrapper">
       <div class="app-wrapper-left">
-        <h2>Add cards</h2>
+        <h2 class="card-input-group-header">Add cards</h2>
         <div class="app-wrapper-left__card-input-group">
           <span>
             <label for="card_name">Name</label>
             <input type="text" id="card_name" name="card_name" placeholder="name">
           </span>
           <span>
-            <label for="card_balance">Balance</label>
+            <label for="card_balance">Balance $</label>
             <input type="text" id="card_balance" name="card_balance" placeholder="0.00">
           </span>
         </div>
@@ -29,6 +29,13 @@
           <img class="app-wrapper-left__add-card-icon" src="./assets/icons/plus_white.svg" />
           Add card
         </button>
+        <h2 class="card-input-group-header">Amount to pay</h2>
+        <div class="app-wrapper-left__card-input-group">
+          <span>
+            <label for="pay_amount">Amount $</label>
+            <input type="text" id="pay_amount" name="pay_amount" placeholder="0.00">
+          </span>
+        </div>
       </div>
       <div class="app-wrapper-right">
         <h2>Cards Ranked</h2>

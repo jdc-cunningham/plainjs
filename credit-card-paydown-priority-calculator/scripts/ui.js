@@ -9,15 +9,18 @@ class CardPaymentCalculator {
     this.cardElemContainer = document.querySelector('.app-wrapper-right');
     this.draggedRow = null;
     this.draggedOverRow = null;
+    this.payAmount = 0;
   }
 
   generateRandomStr(length) {
     return Math.random().toString(36).substr(2, length);
   }
 
-  isNumber() {
+  isNumber(n) {
     // checks integer or float from SO
-    var n = this.cardBalance.value;
+    if (!n) {
+      var n = this.cardBalance.value;
+    }
 
     if (n.indexOf('.') !== -1) {
       n = parseFloat(n);
@@ -34,6 +37,14 @@ class CardPaymentCalculator {
     }
 
     if (isInteger(n) || isFloat(n)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  validAmount(amount) {
+    if (this.isNumber(amount)) {
       return true;
     }
 
@@ -69,7 +80,8 @@ class CardPaymentCalculator {
   }
 
   renderNewCard(cardId, useLocalStorage) {
-    var cardObj = useLocalStorage ? this.userCards[cardId] : this.addedCards[cardId],
+    var cardObj = useLocalStorage ? this.userCards[cardId] : this.addedCards[cardId];
+    var cardPay = cardObj.pay ? cardObj.pay : '',
         cardElem = '<div id="' + cardId + '" class="right__card-block" draggable="true">' +
           '<button type="button" class="card-block__delete-card">' +
             // this is technically not correct
@@ -78,7 +90,10 @@ class CardPaymentCalculator {
           '</button>' +
           '<div class="card-block__wrapper">' +
             '<div class="card-block__name">' + cardObj.name + '</div>' +
-            '<div class="card-block__balance">$' + cardObj.balance + '</div>' +
+            '<div class="card-block__balance">' +
+              '<span>$' + cardObj.balance + '</span>' +
+              '<span>$' + cardPay + '</span>' +
+            '</div>' +
           '</div>' +
         '</div>';
 
@@ -154,7 +169,7 @@ class CardPaymentCalculator {
       return false;
     }
 
-    if (!this.isNumber()) {
+    if (!this.isNumber(null)) {
       alert('Please enter a number or decimal');
       return false;
     }
@@ -169,6 +184,10 @@ class CardPaymentCalculator {
     this.renderNewCard(cardId, false);
     this.updateStorage();
     this.bindHoverClassListener();
+  }
+
+  updateCardPay() {
+
   }
 }
 
@@ -234,6 +253,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (targetParent) {
       app.draggedOverRow = targetParent.getAttribute('id');
+    }
+  });
+
+  document.getElementById('pay_amount').addEventListener('keyup', (e) => {
+    var payAmount = e.target.value;
+    if (payAmount !== '') {
+      if (!app.validAmount(payAmount)) {
+        alert('Please enter a whole number or decimal');
+        e.target.value = app.payAmount;
+      } else {
+        app.payAmount = payAmount;
+      }
     }
   });
 });
