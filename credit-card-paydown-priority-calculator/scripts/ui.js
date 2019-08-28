@@ -71,7 +71,11 @@ class CardPaymentCalculator {
   renderNewCard(cardId, useLocalStorage) {
     var cardObj = useLocalStorage ? this.userCards[cardId] : this.addedCards[cardId],
         cardElem = '<div id="' + cardId + '" class="right__card-block" draggable="true">' +
-          '<button type="button" class="card-block__delete-card">x</button>' +
+          '<button type="button" class="card-block__delete-card">' +
+            // this is technically not correct
+            '<span>x</span>' + 
+            '<img class="card-block__move-icon" src="./assets/icons/top_bottom_arrow.svg" alt="move-icon" />' +
+          '</button>' +
           '<div class="card-block__wrapper">' +
             '<div class="card-block__name">' + cardObj.name + '</div>' +
             '<div class="card-block__balance">$' + cardObj.balance + '</div>' +

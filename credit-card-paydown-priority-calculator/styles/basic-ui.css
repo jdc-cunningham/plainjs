@@ -66,7 +66,7 @@ body * {
 
 .app-wrapper-left__add-card-btn {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
   padding: 10px;
   border-radius: 22px;
@@ -97,6 +97,7 @@ body * {
   flex-wrap: wrap;
   width: 100%;
   cursor: grab;
+  min-height: 48px;
 }
 
 .right__card-block:first-of-type {
@@ -104,7 +105,11 @@ body * {
 }
 
 .right__card-block .card-block__delete-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 0 0 auto;
+  min-width: 40px;
   padding: 0.5em;
   font-size: 1.25rem;
   color: #DC143C;
@@ -115,6 +120,21 @@ body * {
   opacity: 0.6;
   outline: none;
 }
+
+.right__card-block:hover .card-block__delete-card span {
+  display: none;
+}
+
+.right__card-block .card-block__move-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  display: none;
+}
+
+.right__card-block:hover .card-block__delete-card .card-block__move-icon {
+  display: block;
+}
+
 
 .right__card-block .card-block__delete-card:hover {
   opacity: 1;
