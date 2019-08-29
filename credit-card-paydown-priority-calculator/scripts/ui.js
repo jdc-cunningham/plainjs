@@ -22,10 +22,18 @@ class CardPaymentCalculator {
       var n = this.cardBalance.value;
     }
 
-    if (n.indexOf('.') !== -1) {
-      n = parseFloat(n);
-    } else {
-      n = parseInt(n);
+    // this makes '1.2b' pass, adding regex pattern check
+    // if (n.indexOf('.') !== -1) {
+    //   n = parseFloat(n);
+    // } else {
+    //   n = parseInt(n);
+    // }
+
+    var regexp = /^[0-9]+([,.][0-9]+)?$/g;
+    var isIntFloat = regexp.test(n);
+    
+    if (isIntFloat) {
+      return true;
     }
 
     const isFloat = (n) => {
@@ -170,7 +178,7 @@ class CardPaymentCalculator {
     }
 
     if (!this.isNumber(null)) {
-      alert('Please enter a number or decimal');
+      alert('Please enter a whole number or 1');
       return false;
     }
 
@@ -260,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var payAmount = e.target.value;
     if (payAmount !== '') {
       if (!app.validAmount(payAmount)) {
-        alert('Please enter a whole number or decimal');
+        alert('Please enter a whole number or decimal 2');
         e.target.value = app.payAmount;
       } else {
         app.payAmount = payAmount;
