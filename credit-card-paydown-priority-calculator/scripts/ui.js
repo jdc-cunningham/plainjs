@@ -17,34 +17,14 @@ class CardPaymentCalculator {
   }
 
   isNumber(n) {
-    // checks integer or float from SO
     if (!n) {
       var n = this.cardBalance.value;
     }
 
-    // this makes '1.2b' pass, adding regex pattern check
-    // if (n.indexOf('.') !== -1) {
-    //   n = parseFloat(n);
-    // } else {
-    //   n = parseInt(n);
-    // }
-
-    var regexp = /^[0-9]+([,.][0-9]+)?$/g;
+    var regexp = /^[0-9.]*$/;
     var isIntFloat = regexp.test(n);
     
     if (isIntFloat) {
-      return true;
-    }
-
-    const isFloat = (n) => {
-      return n === +n && n !== (n|0);
-    }
-    
-    const isInteger = (n) => {
-      return n === +n && n === (n|0);
-    }
-
-    if (isInteger(n) || isFloat(n)) {
       return true;
     }
 
@@ -132,6 +112,11 @@ class CardPaymentCalculator {
     }
   }
 
+  clearAddCardFields() {
+    this.cardName.value = '';
+    this.cardBalance.value = '';
+  }
+
   clearCards() {
     document.querySelectorAll('.right__card-block').forEach( (cardBlock) => {
       cardBlock.remove();
@@ -192,6 +177,7 @@ class CardPaymentCalculator {
     this.renderNewCard(cardId, false);
     this.updateStorage();
     this.bindHoverClassListener();
+    this.clearAddCardFields();
   }
 
   updateCardPay() {

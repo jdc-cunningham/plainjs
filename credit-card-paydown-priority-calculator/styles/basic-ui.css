@@ -71,7 +71,7 @@ body * {
 
 .app-wrapper-left__add-card-btn {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   justify-content: flex-start;
   padding: 10px;
   border-radius: 22px;
